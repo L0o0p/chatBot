@@ -1,0 +1,99 @@
+.processBlock {
+    // background-color: red;
+
+    .processBar {
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .bar {
+            width: 335px;
+            height: 2px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: #A0A0A2;
+            background: color(display-p3 0.6275 0.6275 0.6353);
+            line-height: 16px;
+            cursor: 'pointer',
+        }
+    }
+
+    .processTime {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 9px;
+        color: rgba(255, 255, 255, 0.90);
+        color: color(display-p3 1 1 1 / 0.90);
+        font-family: "PingFang SC";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+}
+
+
+input[type="range"] {
+    /* 移除默认样式 */
+    -webkit-appearance: none;
+    appearance: none;
+
+    /* 宽度和外观 */
+    width: 100%;
+    /* 可以根据需要调整 */
+    height: 2px;
+    border-radius: 8px;
+    /* 轨道高度 */
+    background: #A0A0A2;
+    ;
+    /* 轨道颜色 */
+    outline: none;
+    /* 移除轮廓 */
+    opacity: 0.7;
+    /* 透明度 */
+    transition: opacity .2s;
+    /* 过渡效果 */
+}
+
+/* 悬停时的样式 */
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+/* WebKit内核浏览器，如Chrome、Safari */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    /* 拇指的宽度 */
+    height: 16px;
+    /* 拇指的高度 */
+    background: #F0F0F0;
+    ;
+    /* 拇指的颜色 */
+    cursor: pointer;
+    /* 鼠标样式 */
+    border-radius: 50%;
+    /* 圆形 */
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* IE */
+input[type="range"]::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 50%;
+}

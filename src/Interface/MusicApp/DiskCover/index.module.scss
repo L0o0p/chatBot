@@ -1,0 +1,44 @@
+.cover {
+    height: 217px;
+    width: 217px;
+    border-radius: 20px;
+}
+
+.ListCom {
+    position: absolute;
+    z-index: 3;
+    width: 300px;
+}
+
+.img {
+    height: 217px;
+    width: 217px;
+    border-radius: 999px;
+    transition: transform 0.8s ease-in-out;
+}
+
+.diskImg {
+    height: 217px;
+    width: 217px;
+    border-radius: 999px;
+    animation: spin 30s linear infinite;
+    transition: transform 0.8s ease-in-out;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+        /* 开始时的旋转角度 */
+    }
+
+    to {
+        transform: rotate(360deg);
+        /* 结束时的旋转角度 */
+    }
+}
+
+@media (max-height:844px) {
+    .cover {
+        margin-top: 34px;
+    }
+}

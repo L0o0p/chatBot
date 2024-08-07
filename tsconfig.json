@@ -1,5 +1,7 @@
 {
-  "files": [],
+  "compilerOptions": {
+    "baseUrl": ".", // 确保基准路径是项目的根目录
+  },
   "references": [
     {
       "path": "./tsconfig.app.json"
@@ -7,5 +9,6 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
+  "files": []
 }

@@ -1,0 +1,105 @@
+.inputWindow {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    width: 375px;
+    height: 248px;
+    background-color: rgba(255, 255, 255, 0.08);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    // 上面两个角有圆角
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    // padding: 16px 20px 56px 20px;
+}
+
+.inputWindowContainer {
+    position: relative;
+    width: 335px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    margin: 16px 20px 56px 20px;
+    gap: 24px;
+}
+
+.inputBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputWindow {
+    color: rgba(255, 255, 255, 0.90);
+    color: color(display-p3 1 1 1 / 0.90);
+
+    /* CN/H4-Regular 15pt */
+    font-family: "PingFang SC";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.inputPrompt {
+    resize: none;
+    display: flex;
+    width: 335px;
+    height: 79px;
+    padding: 10px;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    background: color(display-p3 1 1 1 / 0.15);
+    color: rgba(255, 255, 255, 0.50);
+    color: color(display-p3 1 1 1 / 0.50);
+
+    /* CN/H4-Regular 15pt */
+    font-family: "PingFang SC";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.createButton {
+    cursor: pointer;
+    background-color: #FE2C55;
+    color: #ffffff;
+
+    display: flex;
+    width: 100%;
+    height: 44px;
+    padding: 0px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 999px;
+}
+
+@media (max-height:844px) {
+    .inputWindow {
+        bottom: 0px;
+        height: 222px;
+    }
+}
+
+@media (max-width:1280px) {
+    .inputWindow {
+        width: 99.9%;
+
+        .inputWindowContainer {
+            width: 280px
+        }
+    }
+
+    .inputPrompt {
+        width: 300px
+    }
+}

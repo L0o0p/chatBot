@@ -1,0 +1,14 @@
+.superContainer {
+    // 元素布局
+    width: 100%;
+    height: 240px;
+    z-index: 100;
+    position: fixed;
+    bottom: 0;
+    // 看看那大小
+    // background-color: white;
+    // 内容居中
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

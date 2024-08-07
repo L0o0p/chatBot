@@ -1,0 +1,21 @@
+.titleBlock {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.title {
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: "PingFang SC";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.shareIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}

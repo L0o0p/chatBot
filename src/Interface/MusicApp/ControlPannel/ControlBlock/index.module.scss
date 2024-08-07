@@ -1,0 +1,43 @@
+.controlBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.playControl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 156px;
+    transition: transform 0.5s ease-in-out;
+
+}
+
+.playbutton {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    gap: 24px;
+}
+
+.featherButton {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.nextbutton {
+    @extend .featherButton
+}
+
+.previousbutton {
+    @extend .featherButton
+}
+
+.playmode {
+    @extend .featherButton
+}
+
+.download {
+    @extend .featherButton
+}

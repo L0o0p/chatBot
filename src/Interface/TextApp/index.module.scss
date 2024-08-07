@@ -1,0 +1,119 @@
+* {
+  color: wheat, i !important;
+}
+
+.container {
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 66%;
+  height: 100%;
+  opacity: 0.95;
+  border-radius: 20px 20px 2px 2px;
+}
+
+
+
+.logCard {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 20px 20px 2px 2px;
+  border: 0.75px solid rgba(0, 0, 0, 0.30);
+  border: 0.75px solid color(display-p3 0 0 0 / 0.30);
+  // background: #E6E6E6;
+  background-color: #f98d17;
+  box-sizing: border-box;
+  padding: 20px 30px 10px 30px;
+  border: none;
+  box-shadow: 10px 10px 15px rgba(62, 29, 16, 0.2);
+}
+
+.header {
+  display: flex;
+  padding: 2px 8px;
+  align-items: center;
+  gap: 10.875px;
+  align-self: stretch;
+  cursor: pointer;
+  color: #000;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 0.75px solid rgba(0, 0, 0, 0.30);
+  border: 0.75px solid color(display-p3 0 0 0 / 0.30);
+  // background: #FFF;
+  background: #fcd7a0;
+  // background: color(display-p3 1 1 1);
+  box-sizing: border-box;
+  padding: 10px;
+  border:none;
+  box-shadow: inset 0 0 8px rgba(143, 82, 44, 0.5);
+}
+
+.textarea {
+  background-color: #FFF;
+  background: #fcd7a0;
+  color: #000;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.buttonContainer {
+  // background-color: red;
+  box-sizing: border-box;
+  padding: 4px 0 4px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sumitButton {
+  cursor: pointer;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-family: "PingFang SC";
+  // background-color: #007bff;
+  // background-color: white;
+  background: #fcd7a0;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sumitButton:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: rgb(222, 222, 222);
+}
+
+.sumitButtonText {
+  color: var(--sds-color-text-brand-on-brand-tertiary);
+
+  /* Single Line/Body Small Strong */
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-style: normal;
+  font-weight: var(--sds-typography-body-font-weight-strong);
+  line-height: 14px;
+  /* 14px */
+
+}
