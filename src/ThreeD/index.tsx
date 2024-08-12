@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber"
+import { useFrame } from "@react-three/fiber";
 import { Character } from "./Character"
 import { Air } from "./Air"
 import {
@@ -6,13 +7,14 @@ import {
     // OrbitControls, OrthographicCamera,
     PerspectiveCamera
 } from "@react-three/drei"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import * as THREE from 'three'
 import { useAtom } from "jotai"
 import { motion } from "framer-motion-3d";
 import { Bubble } from "./Bubble"
 import { ifClickShareAtom } from "../store"
 import { BgElement } from "./BgElement"
+import { isTalkingAtom } from "@store/chatBotStore"
 
 export const ThreeD = () => {
 
@@ -48,6 +50,23 @@ const Light = () => {
 const Camera = () => {
     const cameraRef = useRef<THREE.PerspectiveCamera>(null)
     const [ifClickShare] = useAtom(ifClickShareAtom)
+    const [isTalking] = useAtom(isTalkingAtom)
+    const initCamera = {
+        position: { x: -1, y: 1, z: 12 },
+        target: { x: 0, y: -0.8, z: 0 },
+    }
+
+    // 触发：讲话时候重置镜头
+    useEffect(() => {
+        if (cameraRef?.current) { cameraRef?.current.position.set(initCamera.position.x, initCamera.position.y, initCamera.position.z) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isTalking])
+
+    // 动画框架，用于更新位置和缩放
+    useFrame((state) => {
+        state.camera.position.lerp(initCamera.position, 0.04);
+        state.camera.lookAt(initCamera.target.x, initCamera.target.y, initCamera.target.z);
+    });
 
     return (
         <>
@@ -72,7 +91,17 @@ const Camera = () => {
                     receiveShadow
                 />
             </motion.group>
-            <OrbitControls makeDefault enabled={true} target={[0, -2, 0]} />
+            <OrbitControls
+                // makeDefault
+                // enabled={true}
+                target={[0, -2, 0]}
+                regress={false}
+                maxDistance={20}
+                minDistance={10}
+                dampingFactor={.5}
+                enableDamping={true}
+                panSpeed={.1}
+            />
         </>
     )
 }

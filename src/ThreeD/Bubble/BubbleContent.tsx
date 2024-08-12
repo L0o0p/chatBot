@@ -1,30 +1,35 @@
 import { Text } from "@react-three/drei"
 import { useEffect, useMemo, useState } from "react"
-import { firstThreeAreChinese, formatContent } from "../../Interface/TextApp/functions/getMessage";
+import { moreThanOneThirdChinese, formatContent } from "../../Interface/TextApp/functions/getMessage";
 interface Props {
     status: string;
     textColor: string
     textOpacity: number
+    fontSize: number
+    textlength: { en: number, cn: number }
+    textCut: number
+    lineLength: number
+    lineHeight: number
 }
 export const BubbleContent = (props: Props) => {
-    const { status, textColor, textOpacity } = props
+    const { status, textColor, textOpacity, fontSize, textlength, textCut, lineLength, lineHeight } = props
     const [content, setContent] = useState('')
     // const [result, setResult] = useState()
     // const [lang, setLang] = useState(false)
     const [charaLimit, setCharaLimit] = useState(20)
     const result = useMemo(() => {
         // 判断是否为中文
-        const lang = firstThreeAreChinese(status)
+        const lang = moreThanOneThirdChinese(status)
         if (lang) {
-            console.log('是否判断为CN：', lang);
-            setCharaLimit(30)
-            return formatContent(status)
+            console.log('是否判断为CN：', lang, '此时字数限制', textlength);
+            setCharaLimit(textlength.cn)
+            return formatContent(status, textCut, lineLength)
         }
         else {
-            setCharaLimit(24)
+            setCharaLimit(textlength.en)
             return status
         }
-    }, [status])
+    }, [lineLength, status, textCut, textlength])
 
     // 完整的文本内容
     // 打字机效果
@@ -38,7 +43,7 @@ export const BubbleContent = (props: Props) => {
                 setContent(result.slice(0, contentLen))
                 contentLen++
             }
-        }, 100);
+        }, 20);
         return () => clearInterval(timer);
     }, [result]);
 
@@ -50,12 +55,12 @@ export const BubbleContent = (props: Props) => {
     return (
         <Text
             scale={.35}
-            position={[0.2, 0, .42]}
+            position={[0.1, 0, .42]}
             maxWidth={5}
             color={textColor}//#D2B48C, #CD853F,#8B4513
-            fontSize={.66}
+            fontSize={fontSize}
             fillOpacity={textOpacity}
-            lineHeight={1.3}
+            lineHeight={lineHeight}
         >
             {sliced}
         </Text>

@@ -24,41 +24,61 @@ export const user = {
 const a: BubbleStore = [{
     content: "Hello," + "\n" + " I' m Tim",
     ifVisible: true,
-    position: [0, -1, -5]
+    position: [0.5, -0, -5],
+    isClicked: false,
 }]
 
-export interface Bubble {
+export interface BubbleProps {
     content: string;
     ifVisible: boolean;
-    position: number[]
+    position: [number, number, number]
+    isClicked: boolean,
 }
 type BubbleStore = {
     content: string;
     ifVisible: boolean;
-    position: number[]
+    position: [number, number, number]
+    isClicked: boolean,
 }[];
 export const defaultBubbleStoreAtom = atom<BubbleStore>(a);
 export const useBubble = () => {
     const [bubbleStore, setBubbleStore] = useAtom(defaultBubbleStoreAtom)
-    const appendBubble = (content: string, position: number[]) => {
-        const bubble: Bubble = {
+    // 函数:追加新的气泡（仅改变contetnt和position属性）
+    const appendBubble = (content: string, position: [number, number, number]) => {
+        const bubble: BubbleProps = {
             content,
             ifVisible: true,
-            position
+            position,
+            isClicked: false
         }
         setBubbleStore(bubbleStore => [...bubbleStore, bubble])
     }
+    // 函数:改变指定气泡的isClicked属性
+    const changIsClicked = (x: number) => {
+        setBubbleStore(bubbleStore.map((item, index) => {
+            if (index === x) {
+                return { ...item, isClicked: !item.isClicked };
+            }
+            else {
+                return { ...item, isClicked: false };
+            }
+            return item
+        }
+        ))
+    }
+    // 规则：自动迭代气泡
     if (bubbleStore.length > 12) {
         // 当bubble数量大于5个，则删除最老的bubble
         setBubbleStore(bubbleStore => bubbleStore.slice(1))
-     }
+    }
+
     return {
-        bubbleStore,
-        setBubbleStore,
-        appendBubble
+        bubbleStore,// 对象：bubbleStore 是一个数组，数组中的元素是Bubble类型
+        setBubbleStore,// 函数：设置bubbleStore
+        appendBubble, // 函数：追加一个Bubble到bubbleStore
+        changIsClicked // 函数：改变指定气泡的isClicked属性
     }
 }
 
 export const isTalkingAtom = atom(false)
-
 

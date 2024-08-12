@@ -5,8 +5,8 @@ interface getMessageProps {
     setPrompt: (arg0: string) => void
     // appendCard: (newCard: { emoji: string; title: string; content: string; }) => void;
     // setStatus: (arg0: string) => void;
-    appendBubble: (content: string, position: number[]) => void
-    position: number[]
+    appendBubble: (content: string, position: [number, number, number]) => void
+    position: [number, number, number]
 }
 // import { Text } from "@react-three/drei"
 // import { useEffect } from "react";
@@ -56,12 +56,12 @@ interface getMessageProps {
 //     result = beforeResult.join('\n');
 //     return { result };
 // }
-export const formatContent = (inputContent: string): string => {
+export const formatContent = (inputContent: string, textCut: number, lineLenght: number) => {
     let result = '';
     const beforeResult = [];
 
     // 控制总文本长度，先截取一段文本
-    const sliceContent = inputContent.slice(0, 40);
+    const sliceContent = inputContent.slice(0, textCut);
 
     let line = ''; // 预存每一行的文本
     let currentLength = 0; // 当前行的字符长度
@@ -69,7 +69,7 @@ export const formatContent = (inputContent: string): string => {
     // 遍历截取的内容，每个汉字处理
     Array.from(sliceContent).forEach(char => {
         // 如果添加这个字符会超过13个字符，则先将当前行保存
-        if (currentLength + 1 >7) {
+        if (currentLength + 1 > lineLenght) {
             beforeResult.push(line);
             line = ''; // 清空行
             currentLength = 0; // 重置当前行长度
@@ -86,18 +86,37 @@ export const formatContent = (inputContent: string): string => {
 
     result = beforeResult.join('\n');
     console.log('执行了');
-    
+
     return result;
 }
-// 中文判断
-function isChinese(char:string) {
+
+// 判断单个字符是否为中文
+function isChinese(char: string): boolean {
     return /^[\u4e00-\u9fa5]$/.test(char);
 }
 
-export function firstThreeAreChinese(str:string) {
-    if (str.length < 3) return false;
-    return isChinese(str[0]) && isChinese(str[1]) && isChinese(str[2]);
+// 判断字符串中是否超过三分之一的内容是中文
+export function moreThanOneThirdChinese(str: string): boolean {
+    if (!str.length) return false;
+
+    let chineseCount = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (isChinese(str[i])) {
+            chineseCount++;
+        }
+    }
+
+    return chineseCount > str.length / 3;
 }
+// // 中文判断
+// function isChinese(char: string) {
+//     return /^[\u4e00-\u9fa5]$/.test(char);
+// }
+
+// export function firstThreeAreChinese(str: string) {
+//     if (str.length < 3) return false;
+//     return isChinese(str[0]) && isChinese(str[1]) && isChinese(str[2]);
+// }
 //全中文判断
 // export function isChinese(string: string) {
 //     // 正则表达式匹配中文字符

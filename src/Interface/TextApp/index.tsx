@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 import { useAtom } from 'jotai'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     isTalkingAtom,
     promptAtom,
@@ -40,7 +40,7 @@ export const TextApp = () => {
         const y = Math.floor(Math.random() * 8) - 4;  // 生成 -4 到 4 之间的整数
         // const z = Math.floor(Math.random() * 11) - 5;  // 生成 -5 到 5 之间的整数
         const z = parseFloat((Math.random() * 3 - 5.3).toFixed(2));  // 生成 -5.3 到 -2.3 之间的小数，并保留两位小数
-        const coordinates = [x, y, z];
+        const coordinates = [x, y, z] as [number, number, number];
         // 如果坐标不存在于 exitCoordinates 中，则添加到 exitCoordinates 中
         let foundUnique = false;
         while (!foundUnique) {
@@ -79,6 +79,23 @@ interface props {
 }
 const MyButton = (props: props) => {
     const { click, disable } = props
+    useEffect(() => {
+        const handleKeyDown = (event: { key: string; }) => {
+            // 使用 'Enter' 键作为快捷键
+            if (event.key === 'Enter') {
+                click();
+            }
+        };
+
+        // 添加事件监听器
+        document.addEventListener('keydown', handleKeyDown);
+
+        // 清理函数
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <div className={styles.buttonContainer}>
             <button
@@ -98,8 +115,8 @@ const MyButton = (props: props) => {
                         d="M3.33334 2L12.6667 8L3.33334 14V2Z"
                         stroke="#2C2C2C"
                         style={{
-                            stroke: '#2C2C2C',
-                            strokeOpacity: 1
+                            stroke: '#8B4513',
+                            strokeOpacity: 1,
                         }}
                         strokeWidth="1.6"
                         strokeLinecap="round"

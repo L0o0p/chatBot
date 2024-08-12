@@ -40,7 +40,7 @@ const FloatBall = (props: FloatElementProps) => {
             floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
             floatingRange={[-0.1, 0.1]} // Range of y-axis values the object will float within, defaults to 
         >
-            <mesh position={position} rotation={[0, 0, 0]} scale={scale} >
+            <mesh position={[position[0], position[1], position[2]]} rotation={[0, 0, 0]} scale={scale} >
                 <sphereGeometry args={[1, 32, 32]} />
                 <meshStandardMaterial color={color} />
             </mesh>
@@ -68,8 +68,8 @@ const FloatCylinder = (props: FloatCylinderProps) => {
             floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
             floatingRange={[-0.1, 0.1]} // Range of y-axis values the object will float within, defaults to
         >
-            <group position={position} scale={scale} rotation={rotation}>
-                {list.map((item, index) => {
+            <group position={[position[0], position[1], position[2]]} scale={scale} rotation={[rotation[0], rotation[1], rotation[2]]}>
+                {list.map((_, index) => {
                     const x = 0 + index * 0.03 // 确保位置根据 index 变化
                     return (
                         <Cylinder
@@ -84,7 +84,7 @@ const FloatCylinder = (props: FloatCylinderProps) => {
                 })
                 }
             </group>
-        </Float>
+        </Float >
     )
 }
 
