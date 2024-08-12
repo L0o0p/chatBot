@@ -3,11 +3,12 @@ import './App.css';
 import { Suspense } from 'react';
 import { ThreeD } from './ThreeD';
 import { Interface } from './Interface';
+import { LoadingIndicator } from './loading';
 function App() {
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<LoadingIndicator />}>
         <Interface />
         <ThreeD />
       </Suspense>
@@ -17,11 +18,6 @@ function App() {
 
 export default App;
 
-const Loading = () => {
-  console.log('loading')
-  return (
-    <img src={'loadingPage/logo.png'} alt="loading" />
-  )
-}
+
 
 
