@@ -23,6 +23,7 @@ export const LoadingIndicator: React.FC = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
+                backgroundColor: '#ffbd5d'
             }}
         >
             <div
@@ -33,7 +34,7 @@ export const LoadingIndicator: React.FC = () => {
                     /* extrabold */
                     lineHeight: '1.25',
                     /* snug */
-                    color: ' #a5f3fc',
+                    color: '#FFDEAD',
                     /* cyan-200 */
                 }}
             >

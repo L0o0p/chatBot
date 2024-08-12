@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: rgb(255, 189, 93);
 }
 
 #root {
@@ -23,4 +23,3 @@ body {
   align-items: center;
   justify-content: center;
 }
-

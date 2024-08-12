@@ -22,7 +22,7 @@ export const user = {
 // 卡片管理
 // 预设 bubble 列表
 const a: BubbleStore = [{
-    content: "Hello," + "\n" + " I' m Tim",
+    content: "Hello," + "\n" + " I' m Juliyet",
     ifVisible: true,
     position: [0.5, -0, -5],
     isClicked: false,
