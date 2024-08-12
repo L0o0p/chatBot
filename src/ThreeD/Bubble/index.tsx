@@ -11,24 +11,24 @@ export const Bubble = () => {
     const matchStyle = (item: BubbleProps, isLastest: boolean, isClicked: boolean) => {
         // if (!item.ifVisible) return undefined;
         const bubblestyle = {
-            color: isClicked ? 'white' : (isLastest ? 'white' : '#fcd7a0'),
-            position: isClicked ? { x: -2.5, y: -3, z: 1, } : (isLastest ? { x: 0.5, y: 0, z: 0, } : { x: item.position[0], y: item.position[1], z: item.position[2] }),
+            color: isClicked ? 'white' : (isLastest ? '#FFDEAD' : '#DEB887'),
+            position: isClicked ? { x: -2.5, y: -3, z: 1, } : (isLastest ? { x: .8, y: 0, z: 0, } : { x: item.position[0], y: item.position[1], z: item.position[2] }),
             scale: [0, 1, isClicked ? 4 : (isLastest ? 1.2 : Math.random() * 0.2 + 0.7)],
             floatProps: {
                 enabled: isClicked ? false : true,
-                speed: isClicked ? 0 : (isLastest ? 0.2 : 1),
+                speed: isClicked ? 0 : (isLastest ? 0.4 : 1),
                 rotationIntensity: isClicked ? 0 : (isLastest ? 0.2 : 0.8),
                 floatIntensity: isClicked ? 0 : (isLastest ? 1 : 1),
-                floatingRange: isClicked ? [0, 0] as [number, number] : (isLastest ? [-0.1, 0.1] as [number, number] : [-0.8, 0.8] as [number, number])
+                floatingRange: isClicked ? [0, 0] as [number, number] : (isLastest ? [-0.4, 0.4] as [number, number] : [-0.8, 0.8] as [number, number])
             },
             text: {
-                fontSize: isClicked ? 0.2 : 0.66,
-                textColor: isLastest ? '#CD853F' : '#D2B48C',
+                fontSize: isClicked ? 0.2 : 0.6,
+                textColor: isClicked ? '#CD853F' : (isLastest ? '#CD853F' : '#D2B48C'),
                 textOpacity: isLastest ? 1 : .6,
                 textCut: isClicked ? 300 : 40,//首次截取长度
-                textlength: isClicked ? { en: 144, cn: 180 } : { en: 24, cn: 30 }, //二次截取长度
+                textlength: isClicked ? { en: 360, cn: 180 } : { en: 24, cn: 30 }, //二次截取长度
                 lineLength: isClicked ? 20 : 7,// 每行字数限制
-                lineHeight: isClicked ? 1.7 : 1.3 // 行高限制
+                lineHeight: isClicked ? 1.8 : 1.5 // 行高限制
             }
         };
 

@@ -3,11 +3,11 @@ import { Cylinder, Float } from "@react-three/drei";
 export const BgElement = () => {
 
     return <>
-        <FloatBall color={"#fcd7a0"} position={[-.7, 1.3, 0 - 1]} scale={.1} />
-        <FloatBall color={"#fcd7a0"} position={[.7, 1.8, 0]} scale={.1} />
+        <FloatBall color={"#fa8e19"} position={[-.7, 1.3, 0 - 1]} scale={.1} />
+        <FloatBall color={"#fa8e19"} position={[.7, 1.8, 0]} scale={.1} />
         <FloatBall color={"#fa8e19"} position={[-.6, 1.2, 0]} scale={.13} />
-        <FloatBall color={"#fcd7a0"} position={[1.3, 1.1, 0 - .6]} scale={.1} />
-        <FloatBall color={"#fcd7a0"} position={[-.8, 2, 0]} scale={.1} />
+        <FloatBall color={"#fa8e19"} position={[1.3, 1.1, 0 - .6]} scale={.1} />
+        <FloatBall color={"#fa8e19"} position={[-.8, 2, 0]} scale={.1} />
         <FloatCylinder color={"#f98d17"}
             scale={1}
             position={[0.55, 1.6, .85]}

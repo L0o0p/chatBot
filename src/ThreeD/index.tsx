@@ -37,9 +37,9 @@ export const ThreeD = () => {
 const Light = () => {
     return (
         <>
-            <ambientLight intensity={Math.PI / 2} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} castShadow />
-            <pointLight position={[2, 3, 3]} decay={0} intensity={Math.PI} castShadow />
+            <ambientLight intensity={2.5} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={2} castShadow />
+            <pointLight position={[2, 3, 3]} decay={0} intensity={2} castShadow />
             <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} castShadow />
             <ambientLight intensity={1} />
         </>
@@ -59,7 +59,7 @@ const Camera = () => {
     // 触发：讲话时候重置镜头
     useEffect(() => {
         if (cameraRef?.current) { cameraRef?.current.position.set(initCamera.position.x, initCamera.position.y, initCamera.position.z) }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isTalking])
 
     // 动画框架，用于更新位置和缩放
