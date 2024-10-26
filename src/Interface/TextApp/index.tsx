@@ -52,6 +52,29 @@ export const TextApp = () => {
         }
         return { coordinates };
     };
+    const fetchChatLog = async () => {
+        const url = 'http://localhost:3000/articles/chatlog';  // 确保 URL 匹配您的后端服务地址和端口
+        try {
+            console.log('1');
+            const response = await fetch(url, {
+                method: 'GET',  // 使用 GET 方法
+                headers: {
+                    'Content-Type': 'application/json'  // 假设后端期望接收 JSON 格式
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();  // 解析 JSON 响应体
+            console.log('Chat log:', data);  // 输出获取到的聊天记录
+            return data;  // 返回数据以便可以在其他地方使用
+        } catch (error) {
+            console.error('Failed to fetch chat log:', error);
+        }
+    }
+
 
     return (<>
         <div className={styles.container}>
@@ -66,7 +89,10 @@ export const TextApp = () => {
                         onChange={e => setPrompt(e.target.value)}
                     />
                 </div>
-                <MyButton click={handleClick} disable={isDsabled} />
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+                    <MyButton click={handleClick} disable={isDsabled} />
+                    <button onClick={fetchChatLog}>fetchData</button>
+                </div>
             </div>
         </div>
     </>)
@@ -94,7 +120,7 @@ const MyButton = (props: props) => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div className={styles.buttonContainer}>

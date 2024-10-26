@@ -59,6 +59,7 @@ export const Bubble = () => {
                 const style: styleProps = matchStyle(item, index === bubbleStore.length - 1, item.isClicked);
                 return (
                     <Float
+                        key={index}
                         // enabled={false}
                         enabled={style.floatProps.enabled}
                         speed={style.floatProps.speed} // Animation speed, defaults to 1
