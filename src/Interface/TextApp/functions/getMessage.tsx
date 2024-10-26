@@ -141,7 +141,6 @@ export async function getMessage(props: getMessageProps) {
         try {
             const { feedBack } = await sendMessage(prompt); // 获取发送消息到服务器的响应
             console.log('feedBack', feedBack);
-            // setStatus(feedBack);
             appendBubble(feedBack, position)
 
         } catch (error) {
@@ -170,38 +169,27 @@ export async function getMessage(props: getMessageProps) {
 
 // 方法：发送消息到服务器
 async function sendMessage(prompt: getMessageProps["prompt"]) {
-    const url = `${user.BASE_URL}/chat-messages`; // 替换为正确的 URL
+    const url = 'http://localhost:3000/articles/sendmessage'
     const data = {
         query: prompt,//"你好，我想了解更多信息。",
-        response_mode: "blocking",
-        user: "user123",
-        auto_generate_name: true,
-        inputs: {}
     };
 
     try {
-        const response = await axios.post(
-            url,
-            data,
-            {
-                headers: { 'Authorization': `Bearer ${user.Authorization}` }
-            });
-        const feedBack = response.data.answer
-        console.log('Response:', feedBack);
+        const response = await fetch(url, {
+            method: 'Post',  // 使用 GET 方法
+            headers: {
+                'Content-Type': 'application/json'  // 假设后端期望接收 JSON 格式
+            },
+
+            body: JSON.stringify(data),
+        });
+        let feedBack = await response.json();
+        feedBack = feedBack.feedBack,
+        console.log('Response2222:', feedBack, typeof feedBack);
         return { feedBack }
     } catch (error) {
-        const axiosError = error as AxiosError<{ message: string }>;
-        if (axiosError.response) {
-            console.error('Error Status:', axiosError.response.status);
-            console.error('Error Data:', axiosError.response.data);
-            return { feedBack: "Error: " + axiosError.response.data.message };  // 提供默认反馈
-        } else if (axiosError.request) {
-            console.error('No response received.');
-            return { feedBack: "No response received" };  // 提供默认反馈
-        } else {
-            console.error('Error Message:', axiosError.message);
-            return { feedBack: "Request setup error" };  // 提供默认反馈
-        }
+        console.error('Error:', error);
+        return { error };
     }
 }
 

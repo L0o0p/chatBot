@@ -36,15 +36,13 @@ export const TextApp = () => {
     }
     // 给新增的字条随机生成展示位置
     const generateRandomCoordinate = () => {
-        const x = Math.floor(Math.random() * 14) - 7;  // 生成 -7 到 7 之间的整数
-        const y = Math.floor(Math.random() * 8) - 4;  // 生成 -4 到 4 之间的整数
-        // const z = Math.floor(Math.random() * 11) - 5;  // 生成 -5 到 5 之间的整数
-        const z = parseFloat((Math.random() * 3 - 5.3).toFixed(2));  // 生成 -5.3 到 -2.3 之间的小数，并保留两位小数
-        const coordinates = [x, y, z] as [number, number, number];
-        // 如果坐标不存在于 exitCoordinates 中，则添加到 exitCoordinates 中
+        let coordinates: number[];
         let foundUnique = false;
         while (!foundUnique) {
-            // 使用 JSON.stringify 来比较数组内容
+            const x = Math.floor(Math.random() * 14) - 7;
+            const y = Math.floor(Math.random() * 8) - 4;
+            const z = parseFloat((Math.random() * 3 - 5.3).toFixed(2));
+            coordinates = [x, y, z];
             if (!exitCoordinates.some(coord => JSON.stringify(coord) === JSON.stringify(coordinates))) {
                 setExitCoordinates(exitCoordinates => [...exitCoordinates, coordinates]);
                 foundUnique = true;
@@ -55,7 +53,6 @@ export const TextApp = () => {
     const fetchChatLog = async () => {
         const url = 'http://localhost:3000/articles/chatlog';  // 确保 URL 匹配您的后端服务地址和端口
         try {
-            console.log('1');
             const response = await fetch(url, {
                 method: 'GET',  // 使用 GET 方法
                 headers: {
@@ -68,12 +65,28 @@ export const TextApp = () => {
             }
 
             const data = await response.json();  // 解析 JSON 响应体
-            console.log('Chat log:', data);  // 输出获取到的聊天记录
-            return data;  // 返回数据以便可以在其他地方使用
+            console.log('Chat log:', data.data);  // 输出获取到的聊天记录
+            return data.data;  // 返回数据以便可以在其他地方使用
         } catch (error) {
             console.error('Failed to fetch chat log:', error);
         }
     }
+
+    const createHistoryBubble = async () => {
+        const historyChatLog = await fetchChatLog();
+        console.log('historyChatLog', historyChatLog);
+        
+        historyChatLog.forEach((chat: { answer: string; }) => {
+            const randomPlace = generateRandomCoordinate().coordinates;
+            appendBubble(chat.answer, randomPlace);
+        });
+    }
+    useEffect(() => {
+    const initChatBubbles = async () => {
+        await createHistoryBubble();
+    };
+    initChatBubbles();
+    }, []);
 
 
     return (<>
@@ -91,7 +104,6 @@ export const TextApp = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
                     <MyButton click={handleClick} disable={isDsabled} />
-                    <button onClick={fetchChatLog}>fetchData</button>
                 </div>
             </div>
         </div>
