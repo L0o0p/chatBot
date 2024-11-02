@@ -3,18 +3,15 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from 'three';
 import { useAtom } from "jotai";
-import { ifClickShareAtom, isLoadingAtom, isPlayingAtom, useAction } from "@store";
+import {  isLoadingAtom, useAction } from "@store";
 import { isTalkingAtom } from "@store/chatBotStore";
 
 export const Character = () => {
     const { actions, setActions } = useAction()
-    const [ifClickShare] = useAtom(ifClickShareAtom)
 
     const glb_PATH = '/waterGuy.glb';
     const gltf = useLoader(GLTFLoader, glb_PATH);
-    const expGltf = useLoader(GLTFLoader, '/expression.glb');
     const mixer = useRef<THREE.AnimationMixer | null>(null); // 使用 useRef 避免重复创建
-    const [isPlay] = useAtom(isPlayingAtom)
     const [isLoading] = useAtom(isLoadingAtom)
     const [isTaliking] = useAtom(isTalkingAtom)
     // 动画文件加载
@@ -24,13 +21,10 @@ export const Character = () => {
             // console.log('gltf.animations', gltf.animations);
 
             const loadAnim = mixer.current.clipAction(gltf.animations[0]);
-            const singAnim = mixer.current.clipAction(expGltf.animations[0]);
             const standAnim = mixer.current.clipAction(gltf.animations[2]);
-            const throwAnim = mixer.current.clipAction(gltf.animations[3]);
             const talkAAnim = mixer.current.clipAction(gltf.animations[4]);
             const talkBAnim = mixer.current.clipAction(gltf.animations[5]);
-            const thinkAnim = mixer.current.clipAction(gltf.animations[6]);
-            const actionsA = [loadAnim, singAnim, standAnim, throwAnim, talkAAnim, talkBAnim, thinkAnim];
+            const actionsA = [loadAnim, standAnim, talkAAnim, talkBAnim];
             setActions(actionsA);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +33,7 @@ export const Character = () => {
     // 初始化动画
     useEffect(() => {
         if (actions.length > 0) {
-            initializeAnimations(actions[0], actions[1], actions[2], actions[3], actions[4], actions[5], actions[6])
+            initializeAnimations(actions[0], actions[1], actions[2], actions[3])
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [actions])
@@ -47,21 +41,16 @@ export const Character = () => {
 
     //  函数：动画初始化播放
     function initializeAnimations(
-        loadAnim: THREE.AnimationAction,
-        singAnim: THREE.AnimationAction,
+        loadingAnim: THREE.AnimationAction,
         standAnim: THREE.AnimationAction,
-        throwAnim: THREE.AnimationAction,
         talkAAnim: THREE.AnimationAction,
         talkBAnim: THREE.AnimationAction,
-        thinkAnim: THREE.AnimationAction) {
+    ) {
 
-        setWeight(loadAnim, 0);
-        setWeight(singAnim, 0);
+        setWeight(loadingAnim, 0);
         setWeight(standAnim, 1);
-        setWeight(throwAnim, 0);
         setWeight(talkAAnim, 0);
         setWeight(talkBAnim, 0);
-        setWeight(thinkAnim, 0);
 
         actions.forEach(function (action: { play: () => void; }) {
             action.play();
@@ -109,25 +98,6 @@ export const Character = () => {
         }
     }
 
-
-
-    // 触发动画：播放/暂停
-    useEffect(() => {
-        if (isPlay && !isLoading) {
-            prepareCrossFade(actions[currentIndex], actions[1], 0.4)
-            setCurrentIndex(1)
-            console.log(actions[1]);
-            console.log(isPlay);
-
-        } else {
-            prepareCrossFade(actions[currentIndex], actions[2], 0.4)
-            setCurrentIndex(2)
-            console.log(actions[2]);
-            console.log(isPlay);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPlay]);
-
     // 触发动画：加载
     useEffect(() => {
         if (isLoading) {
@@ -139,28 +109,6 @@ export const Character = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
-
-    // 触发动画：分享
-    useEffect(() => {
-        if (ifClickShare) {
-            prepareCrossFade(actions[currentIndex], actions[3], 0.4)
-            actions[3].loop = THREE.LoopOnce;
-            setCurrentIndex(3)
-            // setTimeout(() => {
-            //     setIfClickShare(false)
-            //     prepareCrossFade(actions[currentIndex], actions[2], 0.4)
-            //     setCurrentIndex(2)
-            // }, 3000)
-        }
-        else {
-            prepareCrossFade(actions[currentIndex], actions[2], 0.4)
-            setCurrentIndex(2)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ifClickShare]);
-    useFrame((_, delta) => {
-        mixer.current?.update(delta); // 更新动画
-    });
 
     // 触发动画：讲话
     useEffect((fromAnimationList = [3, 4], toAnimation = 2) => {
