@@ -1,7 +1,6 @@
 import { Canvas } from "@react-three/fiber"
 import { useFrame } from "@react-three/fiber";
 import { Character } from "./Character"
-import { Air } from "./Air"
 import {
     OrbitControls,
     // OrbitControls, OrthographicCamera,
@@ -120,7 +119,6 @@ const Objects = () => {
                 position={[0, -13, 0 - 2]}
             >
                 <Character />
-                <Air />
                 {/* 背景的气泡 */}
                 <BgElement />
             </group>
