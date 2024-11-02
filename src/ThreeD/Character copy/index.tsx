@@ -24,13 +24,10 @@ export const Character = () => {
             // console.log('gltf.animations', gltf.animations);
 
             const loadAnim = mixer.current.clipAction(gltf.animations[0]);
-            const singAnim = mixer.current.clipAction(expGltf.animations[0]);
             const standAnim = mixer.current.clipAction(gltf.animations[2]);
-            const throwAnim = mixer.current.clipAction(gltf.animations[3]);
             const talkAAnim = mixer.current.clipAction(gltf.animations[4]);
             const talkBAnim = mixer.current.clipAction(gltf.animations[5]);
-            const thinkAnim = mixer.current.clipAction(gltf.animations[6]);
-            const actionsA = [loadAnim, singAnim, standAnim, throwAnim, talkAAnim, talkBAnim, thinkAnim];
+            const actionsA = [loadAnim, standAnim,  talkAAnim, talkBAnim];
             setActions(actionsA);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +36,7 @@ export const Character = () => {
     // 初始化动画
     useEffect(() => {
         if (actions.length > 0) {
-            initializeAnimations(actions[0], actions[1], actions[2], actions[3], actions[4], actions[5], actions[6])
+            initializeAnimations(actions[0], actions[1], actions[2], actions[3])
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [actions])
@@ -47,21 +44,14 @@ export const Character = () => {
 
     //  函数：动画初始化播放
     function initializeAnimations(
-        loadAnim: THREE.AnimationAction,
-        singAnim: THREE.AnimationAction,
         standAnim: THREE.AnimationAction,
-        throwAnim: THREE.AnimationAction,
         talkAAnim: THREE.AnimationAction,
         talkBAnim: THREE.AnimationAction,
-        thinkAnim: THREE.AnimationAction) {
+  ) {
 
-        setWeight(loadAnim, 0);
-        setWeight(singAnim, 0);
         setWeight(standAnim, 1);
-        setWeight(throwAnim, 0);
         setWeight(talkAAnim, 0);
         setWeight(talkBAnim, 0);
-        setWeight(thinkAnim, 0);
 
         actions.forEach(function (action: { play: () => void; }) {
             action.play();
